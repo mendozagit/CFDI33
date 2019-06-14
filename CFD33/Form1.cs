@@ -51,10 +51,8 @@ namespace CFD33
             oComprobante.Serie = "H";
             oComprobante.Folio = "1";
             oComprobante.Fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-            // oComprobante.Sello = "faltante"; //sig video
             oComprobante.FormaPago = "99";
-            oComprobante.NoCertificado = NoCertificado;
-            // oComprobante.Certificado = ""; //sig video
+            oComprobante.NoCertificado = NoCertificado;            
             oComprobante.SubTotal = 10m;
             oComprobante.Descuento = 1;
             oComprobante.Moneda = "MXN";
@@ -62,7 +60,6 @@ namespace CFD33
             oComprobante.TipoDeComprobante = "I";
             oComprobante.MetodoPago = "PUE";
             oComprobante.LugarExpedicion = "20131";
-
             ComprobanteEmisor oEmisor = new ComprobanteEmisor();
 
            // oEmisor.Rfc = "MEJJ940824C61";
@@ -79,7 +76,6 @@ namespace CFD33
             oComprobante.Emisor = oEmisor;
             oComprobante.Receptor = oReceptor;
 
-
             List<ComprobanteConcepto> lstConceptos = new List<ComprobanteConcepto>();
             ComprobanteConcepto oConcepto = new ComprobanteConcepto();
             oConcepto.Importe = 10m;
@@ -90,20 +86,12 @@ namespace CFD33
             oConcepto.ValorUnitario = 10m;
             oConcepto.Descuento = 1;
 
-
             lstConceptos.Add(oConcepto);
             oComprobante.Conceptos = lstConceptos.ToArray();
-            //lstConceptos.Add(oConcepto); estas agregando 2 veces el concepto y tu total no corresponde 
-            //oComprobante.Conceptos = lstConceptos.ToArray();
-
-            // FacturaActual = oComprobante.Serie + oComprobante.Folio + "_" + DateTime.Now.Year + "." + DateTime.Now.Month + "." + DateTime.Now.Day + "_" + DateTime.Now.Hour + "." + DateTime.Now.Minute + "." + DateTime.Now.Second + ".xml";
             FacturaActual = "FACTURA_" + oComprobante.Serie + oComprobante.Folio + ".xml";
 
             //Crear Xml
             CreateXML(oComprobante);
-
-
-
             string cadenaOriginal = "";
 
             System.Xml.Xsl.XslCompiledTransform transformador = new System.Xml.Xsl.XslCompiledTransform(true);
