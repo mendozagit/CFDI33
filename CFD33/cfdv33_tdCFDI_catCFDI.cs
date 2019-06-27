@@ -438,7 +438,7 @@ public partial class Comprobante
         }
         set
         {
-          
+
             this.tipoDeComprobanteField = value;
         }
     }
@@ -1103,6 +1103,7 @@ public partial class ComprobanteConceptoImpuestosTraslado
         }
         set
         {
+            this.tasaOCuotaFieldSpecified = true;
             this.tasaOCuotaField = value;
         }
     }
@@ -1131,6 +1132,7 @@ public partial class ComprobanteConceptoImpuestosTraslado
         }
         set
         {
+            this.importeFieldSpecified = true;
             this.importeField = value;
         }
     }
@@ -1605,6 +1607,7 @@ public partial class ComprobanteImpuestos
         }
         set
         {
+            this.totalImpuestosTrasladadosFieldSpecified = true;
             this.totalImpuestosTrasladadosField = value;
         }
     }

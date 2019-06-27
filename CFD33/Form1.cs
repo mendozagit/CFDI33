@@ -46,23 +46,26 @@ namespace CFD33
             SelloDigital.leerCER(RutaCer, out aa, out b, out c, out NoCertificado);
 
             //Llenamos la clase COMPROBANTE--------------------------------------------------------
-            Comprobante oComprobante = new Comprobante();
-            oComprobante.Version = "3.3";
-            oComprobante.Serie = "H";
-            oComprobante.Folio = "1";
-            oComprobante.Fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-            oComprobante.FormaPago = "99";
-            oComprobante.NoCertificado = NoCertificado;            
-            oComprobante.SubTotal = 10m;
-            oComprobante.Descuento = 1;
-            oComprobante.Moneda = "MXN";
-            oComprobante.Total = 9;
-            oComprobante.TipoDeComprobante = "I";
-            oComprobante.MetodoPago = "PUE";
-            oComprobante.LugarExpedicion = "20131";
+            Comprobante comprobante = new Comprobante();
+            comprobante.Version = "3.3";
+            comprobante.Serie = "H";
+            comprobante.Folio = "1";
+            comprobante.Fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+            comprobante.FormaPago = "99";
+            comprobante.NoCertificado = NoCertificado;
+
+            comprobante.SubTotal = 120;
+            comprobante.Descuento = 20;
+            comprobante.Moneda = "MXN";
+            comprobante.Total = 119;
+
+
+            comprobante.TipoDeComprobante = "I";
+            comprobante.MetodoPago = "PUE";
+            comprobante.LugarExpedicion = "20131";
             ComprobanteEmisor oEmisor = new ComprobanteEmisor();
 
-           // oEmisor.Rfc = "MEJJ940824C61";
+            // oEmisor.Rfc = "MEJJ940824C61";
             oEmisor.Rfc = "AAA010101AAA"; //los sellos estan utilizando este rfc
             oEmisor.Nombre = "JESUS MENDOZA JUAREZ";
             oEmisor.RegimenFiscal = "601";
@@ -73,25 +76,85 @@ namespace CFD33
             oReceptor.UsoCFDI = "P01";
 
             //asigno emisor y receptor
-            oComprobante.Emisor = oEmisor;
-            oComprobante.Receptor = oReceptor;
+            comprobante.Emisor = oEmisor;
+            comprobante.Receptor = oReceptor;
 
-            List<ComprobanteConcepto> lstConceptos = new List<ComprobanteConcepto>();
-            ComprobanteConcepto oConcepto = new ComprobanteConcepto();
-            oConcepto.Importe = 10m;
-            oConcepto.ClaveProdServ = "10101505";
-            oConcepto.Cantidad = 1;
-            oConcepto.ClaveUnidad = "C81";
-            oConcepto.Descripcion = "Un misil para la guerra";
-            oConcepto.ValorUnitario = 10m;
-            oConcepto.Descuento = 1;
+            List<ComprobanteConcepto> conceptos = new List<ComprobanteConcepto>();
+            ComprobanteConcepto cocacola = new ComprobanteConcepto();
 
-            lstConceptos.Add(oConcepto);
-            oComprobante.Conceptos = lstConceptos.ToArray();
-            FacturaActual = "FACTURA_" + oComprobante.Serie + oComprobante.Folio + ".xml";
+            cocacola.ClaveProdServ = "10101505";
+            cocacola.ClaveUnidad = "C81";
+            cocacola.Descripcion = "Coca cola 3 litros";
+            cocacola.ValorUnitario = 120;
+            cocacola.Cantidad = 1;
+            cocacola.Descuento = 20;
+            cocacola.Importe = 120;
 
-            //Crear Xml
-            CreateXML(oComprobante);
+            //lists de impuestos para todos los conceptos 
+            List<ComprobanteConceptoImpuestosTraslado> impuestos = new List<ComprobanteConceptoImpuestosTraslado>();
+
+            //iva
+            ComprobanteConceptoImpuestosTraslado iva = new ComprobanteConceptoImpuestosTraslado();
+            iva.Base = 100;
+            iva.TasaOCuota = 0.160000m;
+            iva.TipoFactor = "Tasa";
+            iva.Impuesto = "002";
+            iva.Importe = 16;
+
+
+            //ieps
+            ComprobanteConceptoImpuestosTraslado ieps3 = new ComprobanteConceptoImpuestosTraslado();
+            ieps3.Base = 100;
+            ieps3.TasaOCuota = 0.030000m;
+            ieps3.TipoFactor = "Tasa";
+            ieps3.Impuesto = "003";
+            ieps3.Importe = 3;
+
+
+            impuestos.Add(iva);
+            impuestos.Add(ieps3);
+            cocacola.Impuestos = new ComprobanteConceptoImpuestos();
+            cocacola.Impuestos.Traslados = impuestos.ToArray();
+
+
+            conceptos.Add(cocacola);
+
+
+            comprobante.Conceptos = conceptos.ToArray();
+
+            //***************************Nodo impuesto a nivel comprobante***************************
+            List<ComprobanteImpuestosTraslado> impuestosComprobante = new List<ComprobanteImpuestosTraslado>();
+            ComprobanteImpuestos nodoImpuestoComprobante = new ComprobanteImpuestos();
+
+            ComprobanteImpuestosTraslado imp1 = new ComprobanteImpuestosTraslado();
+            ComprobanteImpuestosTraslado imp2 = new ComprobanteImpuestosTraslado();
+
+
+            imp1.Importe = 16;
+            imp1.Impuesto = "002";
+            imp1.TipoFactor = "Tasa";
+            imp1.TasaOCuota = 0.160000m;
+
+            imp2.Importe = 3;
+            imp2.Impuesto = "003";
+            imp2.TipoFactor = "Tasa";
+            imp2.TasaOCuota = 0.030000m;
+
+            impuestosComprobante.Add(imp1);
+            impuestosComprobante.Add(imp2);
+
+
+            nodoImpuestoComprobante.Traslados = impuestosComprobante.ToArray();
+            nodoImpuestoComprobante.TotalImpuestosTrasladados = 19;
+            //agregamos impuesto a comprobante
+            comprobante.Impuestos = nodoImpuestoComprobante;
+
+
+
+
+
+            FacturaActual = "FACTURA_" + comprobante.Serie + comprobante.Folio + ".xml";
+            CreateXML(comprobante);
             string cadenaOriginal = "";
 
             System.Xml.Xsl.XslCompiledTransform transformador = new System.Xml.Xsl.XslCompiledTransform(true);
@@ -107,10 +170,10 @@ namespace CFD33
 
 
             SelloDigital oSelloDigital = new SelloDigital();
-            oComprobante.Certificado = oSelloDigital.Certificado(RutaCer);
-            oComprobante.Sello = oSelloDigital.Sellar(cadenaOriginal, RutaKey, ClavePrivada);
+            comprobante.Certificado = oSelloDigital.Certificado(RutaCer);
+            comprobante.Sello = oSelloDigital.Sellar(cadenaOriginal, RutaKey, ClavePrivada);
 
-            CreateXML(oComprobante);
+            CreateXML(comprobante);
 
             //TIMBRE DEL XML
             WSTimbrado.RespuestaCFDi respuestaCFDI = new WSTimbrado.RespuestaCFDi();
