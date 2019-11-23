@@ -26,6 +26,7 @@ namespace CFD33
         string FacturaActual;
         string RutaComprobantes;
         string ClavePrivada;
+        Comprobante oComprobante;
         public Form1()
         {
             InitializeComponent();
@@ -46,7 +47,7 @@ namespace CFD33
             SelloDigital.leerCER(RutaCer, out aa, out b, out c, out NoCertificado);
 
             //Llenamos la clase COMPROBANTE--------------------------------------------------------
-            Comprobante oComprobante = new Comprobante();
+            oComprobante = new Comprobante();
             oComprobante.Version = "3.3";
             oComprobante.Serie = "H";
             oComprobante.Folio = "1";
@@ -56,13 +57,13 @@ namespace CFD33
             oComprobante.SubTotal = 30m;
             oComprobante.Descuento = 3;
             oComprobante.Moneda = "MXN";
-            oComprobante.Total = 32.13m;
+            oComprobante.Total = 30.6m;
             oComprobante.TipoDeComprobante = "I";
             oComprobante.MetodoPago = "PUE";
             oComprobante.LugarExpedicion = "20131";
             ComprobanteEmisor oEmisor = new ComprobanteEmisor();
 
-           // oEmisor.Rfc = "MEJJ940824C61";
+            // oEmisor.Rfc = "MEJJ940824C61";
             oEmisor.Rfc = "AAA010101AAA"; //los sellos estan utilizando este rfc
             oEmisor.Nombre = "JESUS MENDOZA JUAREZ";
             oEmisor.RegimenFiscal = "601";
@@ -87,14 +88,14 @@ namespace CFD33
             oConcepto.ValorUnitario = 10m;
             oConcepto.Descuento = 1;
 
-            //impuesto trasladado
+            //impuesto trasladado SOLO IVA
             List<ComprobanteConceptoImpuestosTraslado> lstImpuestosTrasladados = new List<ComprobanteConceptoImpuestosTraslado>();
             ComprobanteConceptoImpuestosTraslado oImpuestoTrasladado = new ComprobanteConceptoImpuestosTraslado();
             oImpuestoTrasladado.Base = 9;
             oImpuestoTrasladado.TasaOCuota = 0.160000m;
             oImpuestoTrasladado.TipoFactor = "Tasa";
             oImpuestoTrasladado.Impuesto = "002";
-            oImpuestoTrasladado.Importe = 1.44m;
+            oImpuestoTrasladado.Importe = 1.440000m;
             lstImpuestosTrasladados.Add(oImpuestoTrasladado);
 
             oConcepto.Impuestos = new ComprobanteConceptoImpuestos();
@@ -118,15 +119,15 @@ namespace CFD33
             oImpuestoTrasladado2.TasaOCuota = 0.160000m;
             oImpuestoTrasladado2.TipoFactor = "Tasa";
             oImpuestoTrasladado2.Impuesto = "002";
-            oImpuestoTrasladado2.Importe = 1.44m;
+            oImpuestoTrasladado2.Importe = 1.440000m;
             lstImpuestosTrasladados2.Add(oImpuestoTrasladado2);
 
             ComprobanteConceptoImpuestosTraslado oImpuestoTrasladadoIEPS = new ComprobanteConceptoImpuestosTraslado();
             oImpuestoTrasladadoIEPS.Base = 9;
-            oImpuestoTrasladadoIEPS.TasaOCuota = 0.250000m;//debe corresponder con un valor del catalogo, exactamente
+            oImpuestoTrasladadoIEPS.TasaOCuota = 0.080000m;//debe corresponder con un valor del catalogo, exactamente
             oImpuestoTrasladadoIEPS.TipoFactor = "Tasa";
             oImpuestoTrasladadoIEPS.Impuesto = "003";//clave ieps 003
-            oImpuestoTrasladadoIEPS.Importe = 2.25m;//el 25% de 9 es 2.25
+            oImpuestoTrasladadoIEPS.Importe = 0.72m;//el 25% de 9 es 2.25
             lstImpuestosTrasladados2.Add(oImpuestoTrasladadoIEPS);
 
             oConcepto2.Impuestos = new ComprobanteConceptoImpuestos();
@@ -149,9 +150,9 @@ namespace CFD33
             ComprobanteConceptoImpuestosTraslado oImpuestoTrasladadoIVAExento = new ComprobanteConceptoImpuestosTraslado();
             oImpuestoTrasladadoIVAExento.Base = 9;
             //  oImpuestoTrasladado.TasaOCuota = 0.160000m; exento no lleva tasa
-            oImpuestoTrasladadoIVAExento.TipoFactor = "Exento"; 
+            oImpuestoTrasladadoIVAExento.TipoFactor = "Exento";
             oImpuestoTrasladadoIVAExento.Impuesto = "002";//clave iva es 002
-          //  oImpuestoTrasladado.Importe = 1.44m; exento no lleva importe
+                                                          //oImpuestoTrasladado.Importe = 1.44m; exento no lleva importe
             lstImpuestosTrasladados3.Add(oImpuestoTrasladadoIVAExento);
 
             oConcepto3.Impuestos = new ComprobanteConceptoImpuestos();
@@ -167,7 +168,7 @@ namespace CFD33
             ComprobanteImpuestos oIMPUESTOS = new ComprobanteImpuestos();
             ComprobanteImpuestosTraslado oITIVA = new ComprobanteImpuestosTraslado();
             ComprobanteImpuestosTraslado oITIEPS = new ComprobanteImpuestosTraslado();
-            oIMPUESTOS.TotalImpuestosTrasladados = 5.13m; //totales de impuestos trasladados
+            oIMPUESTOS.TotalImpuestosTrasladados = 3.6m; //totales de impuestos trasladados
 
             //se agrupan los impuestos del mismo tipo, en este caso iva
             oITIVA.Importe = 2.88m;
@@ -176,10 +177,10 @@ namespace CFD33
             oITIVA.TasaOCuota = 0.160000m;
 
             //ieps
-             oITIEPS.Importe = 2.25m;
+            oITIEPS.Importe = 0.72m;
             oITIEPS.Impuesto = "003";
             oITIEPS.TipoFactor = "Tasa";
-            oITIEPS.TasaOCuota = 0.250000m;
+            oITIEPS.TasaOCuota = 0.080000m;
 
 
 
@@ -197,7 +198,7 @@ namespace CFD33
             CreateXML(oComprobante);
             string cadenaOriginal = "";
 
-            System.Xml.Xsl.XslCompiledTransform transformador = new System.Xml.Xsl.XslCompiledTransform(true);
+            XslCompiledTransform transformador = new XslCompiledTransform(true);
             transformador.Load(RutaCO);
 
             using (StringWriter sw = new StringWriter())
@@ -217,11 +218,9 @@ namespace CFD33
 
             //TIMBRE DEL XML
             WSTimbrado.RespuestaCFDi respuestaCFDI = new WSTimbrado.RespuestaCFDi();
-
-            byte[] bXML = System.IO.File.ReadAllBytes(RutaComprobantes + FacturaActual);
-
             WSTimbrado.TimbradoClient oTimbrado = new WSTimbrado.TimbradoClient();
 
+            byte[] bXML = File.ReadAllBytes(RutaComprobantes + FacturaActual);
             respuestaCFDI = oTimbrado.TimbrarTest("DGE131017IP1", "9616fb2b81e89673495f", bXML);
 
             if (respuestaCFDI.Documento == null)
@@ -234,12 +233,55 @@ namespace CFD33
                 File.WriteAllBytes(RutaComprobantes + FacturaActual, respuestaCFDI.Documento);
                 MessageBox.Show("Ok");
 
+                Desearizar(FacturaActual);
+                MessageBox.Show(oComprobante.TimbreFiscalDigital.UUID);
+
             }
 
 
 
 
         }
+
+
+        private void Desearizar(string facturaActual)
+        {
+
+            //Paso 1 - xml timbrado lo pasamos a clase
+
+            XmlSerializer oSerializer = new XmlSerializer(typeof(Comprobante));
+
+            using (StreamReader reader = new StreamReader(RutaComprobantes + facturaActual))
+            {
+                //aqui deserializamos
+                oComprobante = (Comprobante)oSerializer.Deserialize(reader);
+
+
+                //complementos
+                foreach (var oComplemento in oComprobante.Complemento)
+                {
+                    foreach (var oComplementoInterior in oComplemento.Any)
+                    {
+                        if (oComplementoInterior.Name.Contains("TimbreFiscalDigital"))
+                        {
+
+                            XmlSerializer oSerializerComplemento = new XmlSerializer(typeof(TimbreFiscalDigital));
+                            using (var readerComplemento = new StringReader(oComplementoInterior.OuterXml))
+                            {
+                                oComprobante.TimbreFiscalDigital =(TimbreFiscalDigital)oSerializerComplemento.Deserialize(readerComplemento);
+                            }
+
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+
+
+
 
 
         private void CreateXML(Comprobante oComprobante)
@@ -249,14 +291,14 @@ namespace CFD33
             xmlNameSpace.Add("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital");
             xmlNameSpace.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 
-            XmlSerializer oXmlSerializar = new XmlSerializer(typeof(Comprobante));
+            XmlSerializer serializer = new XmlSerializer(typeof(Comprobante));
             string sXml = "";
-            using (var sww = new StringWriterEncoding(Encoding.UTF8))
+            using (var stringWriter = new StringWriterEncoding(Encoding.UTF8))
             {
-                using (XmlWriter writter = XmlWriter.Create(sww))
+                using (XmlWriter writter = XmlWriter.Create(stringWriter))
                 {
-                    oXmlSerializar.Serialize(writter, oComprobante, xmlNameSpace);
-                    sXml = sww.ToString();
+                    serializer.Serialize(writter, oComprobante, xmlNameSpace);
+                    sXml = stringWriter.ToString();
                 }
             }
             //guardamos el string en un archivo

@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using CFD33;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
@@ -86,6 +87,9 @@ public partial class Comprobante
 
     [XmlAttribute("schemaLocation", Namespace = XmlSchema.InstanceNamespace)]
     public string xsiSchemaLocation = "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
+
+    public TimbreFiscalDigital TimbreFiscalDigital;
+
     public Comprobante()
     {
         this.versionField = "3.3";
@@ -499,6 +503,7 @@ public partial class Comprobante
             this.confirmacionField = value;
         }
     }
+
 }
 
 /// <remarks/>
@@ -1089,7 +1094,7 @@ public partial class ComprobanteConceptoImpuestosTraslado
         }
         set
         {
-            
+
             this.tipoFactorField = value;
         }
     }

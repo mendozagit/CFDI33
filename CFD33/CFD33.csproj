@@ -66,6 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelloDigital.cs" />
     <Compile Include="StringWriterEncoding.cs" />
+    <Compile Include="TimbreFiscalDigitalv11_tdCFDI.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
