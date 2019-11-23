@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.28902.138
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFD33", "CFD33\CFD33.csproj", "{BB89DD14-2156-47AB-B3EE-1AA36E6DBE9E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{516F619F-61F8-4DEF-95BE-C679A1346190}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

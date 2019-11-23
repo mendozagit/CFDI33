@@ -79,6 +79,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="CaluladorImpuestos.xlsx" />
     <None Include="Connected Services\WSTimbrado\CFD33.WSTimbrado.RespuestaCFDi.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

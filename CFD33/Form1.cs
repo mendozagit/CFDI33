@@ -54,10 +54,10 @@ namespace CFD33
             oComprobante.Fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
             oComprobante.FormaPago = "99";
             oComprobante.NoCertificado = NoCertificado;
-            oComprobante.SubTotal = 30m;
-            oComprobante.Descuento = 3;
+            oComprobante.SubTotal = 410.24m;
+            oComprobante.Descuento = 0;
             oComprobante.Moneda = "MXN";
-            oComprobante.Total = 30.6m;
+            oComprobante.Total = 430.97m;
             oComprobante.TipoDeComprobante = "I";
             oComprobante.MetodoPago = "PUE";
             oComprobante.LugarExpedicion = "20131";
@@ -80,22 +80,22 @@ namespace CFD33
             List<ComprobanteConcepto> lstConceptos = new List<ComprobanteConcepto>();
             //Conceptos
             ComprobanteConcepto oConcepto = new ComprobanteConcepto();
-            oConcepto.Importe = 10m;
+            oConcepto.Importe = 45.6m;
             oConcepto.ClaveProdServ = "01010101";
             oConcepto.Cantidad = 1;
             oConcepto.ClaveUnidad = "C81";
             oConcepto.Descripcion = "Un misil para la guerra";
-            oConcepto.ValorUnitario = 10m;
-            oConcepto.Descuento = 1;
+            oConcepto.ValorUnitario = 45.6m;
+            oConcepto.Descuento = 0;
 
             //impuesto trasladado SOLO IVA
             List<ComprobanteConceptoImpuestosTraslado> lstImpuestosTrasladados = new List<ComprobanteConceptoImpuestosTraslado>();
             ComprobanteConceptoImpuestosTraslado oImpuestoTrasladado = new ComprobanteConceptoImpuestosTraslado();
-            oImpuestoTrasladado.Base = 9;
+            oImpuestoTrasladado.Base = 45.6m;
             oImpuestoTrasladado.TasaOCuota = 0.160000m;
             oImpuestoTrasladado.TipoFactor = "Tasa";
             oImpuestoTrasladado.Impuesto = "002";
-            oImpuestoTrasladado.Importe = 1.440000m;
+            oImpuestoTrasladado.Importe = 7.296m;
             lstImpuestosTrasladados.Add(oImpuestoTrasladado);
 
             oConcepto.Impuestos = new ComprobanteConceptoImpuestos();
@@ -105,29 +105,29 @@ namespace CFD33
 
             //Concepto 2 IVA e IEPS
             ComprobanteConcepto oConcepto2 = new ComprobanteConcepto();
-            oConcepto2.Importe = 10m;
+            oConcepto2.Importe = 55.98m;
             oConcepto2.ClaveProdServ = "01010101";
             oConcepto2.Cantidad = 1;
             oConcepto2.ClaveUnidad = "C81";
             oConcepto2.Descripcion = "concepto iva e ieps";
-            oConcepto2.ValorUnitario = 10m;
-            oConcepto2.Descuento = 1;
+            oConcepto2.ValorUnitario = 55.98m;
+            oConcepto2.Descuento = 0;
 
             List<ComprobanteConceptoImpuestosTraslado> lstImpuestosTrasladados2 = new List<ComprobanteConceptoImpuestosTraslado>();
             ComprobanteConceptoImpuestosTraslado oImpuestoTrasladado2 = new ComprobanteConceptoImpuestosTraslado();
-            oImpuestoTrasladado2.Base = 9;
+            oImpuestoTrasladado2.Base = 55.98m;
             oImpuestoTrasladado2.TasaOCuota = 0.160000m;
             oImpuestoTrasladado2.TipoFactor = "Tasa";
             oImpuestoTrasladado2.Impuesto = "002";
-            oImpuestoTrasladado2.Importe = 1.440000m;
+            oImpuestoTrasladado2.Importe = 8.9568m;
             lstImpuestosTrasladados2.Add(oImpuestoTrasladado2);
 
             ComprobanteConceptoImpuestosTraslado oImpuestoTrasladadoIEPS = new ComprobanteConceptoImpuestosTraslado();
-            oImpuestoTrasladadoIEPS.Base = 9;
+            oImpuestoTrasladadoIEPS.Base = 55.98m;
             oImpuestoTrasladadoIEPS.TasaOCuota = 0.080000m;//debe corresponder con un valor del catalogo, exactamente
             oImpuestoTrasladadoIEPS.TipoFactor = "Tasa";
             oImpuestoTrasladadoIEPS.Impuesto = "003";//clave ieps 003
-            oImpuestoTrasladadoIEPS.Importe = 0.72m;//el 25% de 9 es 2.25
+            oImpuestoTrasladadoIEPS.Importe = 4.4784m;//el 25% de 9 es 2.25
             lstImpuestosTrasladados2.Add(oImpuestoTrasladadoIEPS);
 
             oConcepto2.Impuestos = new ComprobanteConceptoImpuestos();
@@ -137,18 +137,18 @@ namespace CFD33
 
             //concepto 3, iva exento 0----------------------------------------------------------
             ComprobanteConcepto oConcepto3 = new ComprobanteConcepto();
-            oConcepto3.Importe = 10m;
+            oConcepto3.Importe = 308.66m;
             oConcepto3.ClaveProdServ = "01010101";
             oConcepto3.Cantidad = 1;
             oConcepto3.ClaveUnidad = "C81";
             oConcepto3.Descripcion = "concepto iva exento";
-            oConcepto3.ValorUnitario = 10m;
-            oConcepto3.Descuento = 1;
+            oConcepto3.ValorUnitario = 308.66m;
+            oConcepto3.Descuento = 0;
 
             //impuesto trasladado iva exento
             List<ComprobanteConceptoImpuestosTraslado> lstImpuestosTrasladados3 = new List<ComprobanteConceptoImpuestosTraslado>();
             ComprobanteConceptoImpuestosTraslado oImpuestoTrasladadoIVAExento = new ComprobanteConceptoImpuestosTraslado();
-            oImpuestoTrasladadoIVAExento.Base = 9;
+            oImpuestoTrasladadoIVAExento.Base = 308.66m;
             //  oImpuestoTrasladado.TasaOCuota = 0.160000m; exento no lleva tasa
             oImpuestoTrasladadoIVAExento.TipoFactor = "Exento";
             oImpuestoTrasladadoIVAExento.Impuesto = "002";//clave iva es 002
@@ -168,20 +168,20 @@ namespace CFD33
             ComprobanteImpuestos oIMPUESTOS = new ComprobanteImpuestos();
             ComprobanteImpuestosTraslado oITIVA = new ComprobanteImpuestosTraslado();
             ComprobanteImpuestosTraslado oITIEPS = new ComprobanteImpuestosTraslado();
-            oIMPUESTOS.TotalImpuestosTrasladados = 3.6m; //totales de impuestos trasladados
+            oIMPUESTOS.TotalImpuestosTrasladados = 20.73m; //totales de impuestos trasladados
 
             //se agrupan los impuestos del mismo tipo, en este caso iva
-            oITIVA.Importe = 2.88m;
+            oITIVA.Importe = 16.2528m;
             oITIVA.Impuesto = "002";
             oITIVA.TipoFactor = "Tasa";
             oITIVA.TasaOCuota = 0.160000m;
 
             //ieps
-            oITIEPS.Importe = 0.72m;
+            oITIEPS.Importe = 4.4784m;
             oITIEPS.Impuesto = "003";
             oITIEPS.TipoFactor = "Tasa";
             oITIEPS.TasaOCuota = 0.080000m;
-
+          
 
 
             lstImpuestoTRANSLADADOS.Add(oITIVA);
@@ -268,7 +268,7 @@ namespace CFD33
                             XmlSerializer oSerializerComplemento = new XmlSerializer(typeof(TimbreFiscalDigital));
                             using (var readerComplemento = new StringReader(oComplementoInterior.OuterXml))
                             {
-                                oComprobante.TimbreFiscalDigital =(TimbreFiscalDigital)oSerializerComplemento.Deserialize(readerComplemento);
+                                oComprobante.TimbreFiscalDigital = (TimbreFiscalDigital)oSerializerComplemento.Deserialize(readerComplemento);
                             }
 
                         }
